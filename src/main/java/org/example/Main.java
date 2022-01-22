@@ -1,6 +1,7 @@
 package org.example;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -15,22 +16,25 @@ public class Main {
     public static void main(String[] args) throws Exception {
         CamelContext camelContext = new DefaultCamelContext();
         camelContext.getPropertiesComponent().setLocation("classpath:application.properties");
+        ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
 
-        Properties properties = camelContext.getPropertiesComponent().loadProperties();
+        DaDataRouteBuilder dataRouteBuilder = new DaDataRouteBuilder();
 
-        DaDataRouteBuilder daDataRoute = new DaDataRouteBuilder();
-        Scanner scan = new Scanner(System.in,"Windows-1251");
-
-        System.out.println("=====>>>>>");
-
-        String query = scan.nextLine();
-
-        daDataRoute.setQuery(query);
-
-        camelContext.addRoutes(daDataRoute);
+        camelContext.addRoutes(dataRouteBuilder);
 
         camelContext.start();
-        Thread.sleep(3_000);
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("=>>>>>");
+        String query = scanner.nextLine();
+
+        while(!query.equals("\\q")){
+            producerTemplate.sendBody("direct:start", query);
+
+            System.out.print("=>>>>>");
+            query = scanner.nextLine();
+        }
+
         camelContext.stop();
     }
 }

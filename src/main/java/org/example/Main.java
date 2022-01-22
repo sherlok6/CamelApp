@@ -32,24 +32,5 @@ public class Main {
         camelContext.start();
         Thread.sleep(3_000);
         camelContext.stop();
-
-        info(properties.getProperty("pathToXml") + "/" + properties.getProperty("name"));
-    }
-
-    public static void info(String path) throws ParserConfigurationException, IOException, SAXException {
-        XmlDocReader xmlDocBuilder = new XmlDocReader(path);
-        xmlDocBuilder.setDocBuilder();
-        xmlDocBuilder.setDocument();
-
-        Node root = xmlDocBuilder.getDocument().getDocumentElement();
-        NodeList childs = root.getChildNodes();
-
-        int count = childs.getLength();
-
-        System.out.println("Количество: " + count);
-        for(int i=0;i < childs.getLength();i++){
-            Node child = childs.item(i).getChildNodes().item(0);
-            System.out.println(child.getTextContent());
-        }
     }
 }

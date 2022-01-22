@@ -28,12 +28,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-http</artifactId>
-            <version>3.12.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-file</artifactId>
+            <artifactId>camel-stream</artifactId>
             <version>3.12.0</version>
         </dependency>
         <dependency>

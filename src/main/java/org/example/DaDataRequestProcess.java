@@ -24,7 +24,6 @@ public class DaDataRequestProcess implements Processor {
         exchange.getIn().setHeader(Exchange.CONTENT_TYPE, "application/json");
         exchange.getIn().setHeader(Exchange.ACCEPT_CONTENT_TYPE, "application/json");
         exchange.getIn().setHeader(Exchange.CHARSET_NAME, "utf8");
-        exchange.getIn().setHeader("Authorization", "Token {{api.key}}");
 
         exchange.getIn().setBody(converter.toJson(daDataRequest));
     }
